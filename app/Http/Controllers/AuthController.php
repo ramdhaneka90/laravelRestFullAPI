@@ -10,7 +10,7 @@ use App\Transformers\UserTransformer;
 
 class AuthController extends Controller
 {
-    public function register(Request $request, User $user)
+    public function registerAPI(Request $request, User $user)
     {
         $this->validate($request, [
             'name' => 'required',
@@ -36,7 +36,7 @@ class AuthController extends Controller
         return response()->json($response, 201);
     }
 
-    public function login(Request $request, User $user)
+    public function loginAPI(Request $request, User $user)
     {
         if(!Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             return response()->json(['error' => 'Your credential is wrong'], 401);

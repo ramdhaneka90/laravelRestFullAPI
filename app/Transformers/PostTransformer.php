@@ -11,6 +11,7 @@ class PostTransformer extends TransformerAbstract
     {
         return [
             'id'  => $post->id,
+            'name' => $post->user->name,
             'content'  => $post->content,
             'published'  => $post->created_at->diffForHumans(),
         ];

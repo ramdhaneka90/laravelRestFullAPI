@@ -2,11 +2,19 @@
 
 use Illuminate\Http\Request;
 
-Route::post('auth/register', 'AuthController@register');
-Route::post('auth/login', 'AuthController@login');
-Route::get('users', 'UserController@users');
-Route::get('user/profile', 'UserController@profile')->middleware('auth:api');
-Route::get('user/{id}', 'UserController@profileById')->middleware('auth:api');
-Route::post('post', 'PostController@add')->middleware('auth:api');
-Route::put('post/{post}', 'PostController@update')->middleware('auth:api');
-Route::delete('post/{post}', 'PostController@delete')->middleware('auth:api');
+// Auth API Route
+Route::post('login', 'AuthController@loginAPI');
+Route::post('register', 'AuthController@registerAPI');
+
+// User API Route
+Route::get('user', 'UserController@getUserAPI');
+Route::get('user/show', 'UserController@getUserProfileAPI')->middleware('auth:api');
+Route::get('user/{id}', 'UserController@getUserProfileByIdAPI')->middleware('auth:api');
+Route::put('user/update', 'UserController@updateUserProfileAPI')->middleware('auth:api');
+Route::delete('user/destroy', 'UserController@destroyUserProfileAPI')->middleware('auth:api');
+
+// Post API Route
+Route::get('post', 'PostController@getPostAPI');
+Route::post('post', 'PostController@createPostAPI')->middleware('auth:api');
+Route::put('post/{post}', 'PostController@updatePostAPI')->middleware('auth:api');
+Route::delete('post/{post}', 'PostController@deletePostAPI')->middleware('auth:api');

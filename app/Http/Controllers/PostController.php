@@ -10,10 +10,22 @@ use App\Transformers\PostTransformer;
 
 class PostController extends Controller
 {
-    public function add(Request $request, Post $post)
+    public function getPostAPI()
+    {
+        $posts = Post::all();
+
+        $response = fractal()
+            ->collection($posts)
+            ->transformWith(new PostTransformer)
+            ->toArray();
+
+        return response()->json($response, 200);
+    }
+
+    public function createPostAPI(Request $request, Post $post)
     {
         $this->validate($request, [
-            'content' => 'min:10',
+            'content' => 'required',
         ]);
 
         $post = $post->create([
@@ -29,7 +41,7 @@ class PostController extends Controller
         return response()->json($response, 201);
     }
 
-    public function update(Request $request, Post $post)
+    public function updatePostAPI(Request $request, Post $post)
     {
         $this->authorize('update', $post);
 
@@ -42,7 +54,7 @@ class PostController extends Controller
             ->toArray();
     }
 
-    public function delete(Request $request, Post $post)
+    public function deletePostAPI(Request $request, Post $post)
     {
         $this->authorize('delete', $post);
 

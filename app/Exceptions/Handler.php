@@ -53,7 +53,7 @@ class Handler extends ExceptionHandler
 
             if($exception instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException) {
                 return response()->json([
-                    'error' => 'Not Found'
+                    'error' => 'Not Found HTTP'
                 ], 404);
             }
 
